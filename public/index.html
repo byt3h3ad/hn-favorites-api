@@ -1,93 +1,138 @@
 <!DOCTYPE html>
-
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width" />
-
-  <title>Hacker News Daily</title>
-  <meta
-    name="description"
-    content="REST API built with TypeScript and Express for Hacker News Daily"
-  />
-
-  <meta property="og:url" content="https://dailyhnapi.vercel.app/" />
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Hacker News Daily" />
-  <meta
-    property="og:description"
-    content="REST API built with TypeScript and Express for Hacker News Daily"
-  />
-  <meta
-    property="og:image"
-    content="https://res.cloudinary.com/drffnopta/image/upload/v1713377495/header_zem12d.png"
-  />
-
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta property="twitter:domain" content="dailyhnapi.vercel.app" />
-  <meta property="twitter:url" content="https://dailyhnapi.vercel.app/" />
-  <meta name="twitter:title" content="Hacker News Daily" />
-  <meta
-    name="twitter:description"
-    content="REST API built with TypeScript and Express for Hacker News Daily"
-  />
-  <meta
-    name="twitter:image"
-    content="https://res.cloudinary.com/drffnopta/image/upload/v1713377495/header_zem12d.png"
-  />
-
-  <style>
-    body {
-      display: grid;
-      place-items: center;
-    }
-
-    p {
-      font-size: 1.25rem;
-    }
-
-    ul {
-      font-size: 1.125rem;
-    }
-  </style>
-</head>
-
-<body>
-  <h1>Hacker News stuff</h1>
-  <p>All my random Hacker News hacks in one place -</p>
-  <ul>
-    <li>
-      <a
-        href="https://github.com/byt3h3ad/hndailyapi"
-        target="_blank"
-        title="API"
-        ><em>Hacker News Daily API:</em></a
-      >
-      REST API built with TypeScript and Express for
-      <a href="https://www.daemonology.net/hn-daily/" target="_blank"
-        >HN Daily</a
-      >.
-    </li>
-    <li>
-      <a
-        href="https://github.com/byt3h3ad/stumbleuponhn"
-        target="_blank"
-        title="Stumble Upon"
-        ><em>StumbleUpon Hacker News:</em></a
-      >
-      StumbleUpon but you get Best Stories from
-      <a href="https://news.ycombinator.com/" target="_blank">Hacker News</a>.
-      Built using NextJS 13 and TailwindCSS.
-    </li>
-    <li>
-      <a
-        href="https://github.com/byt3h3ad/randomhn/"
-        target="_blank"
-        title="Random"
-        ><em>Random Hacker News:</em></a
-      >
-      Teleport to the front page of
-      <a href="https://news.ycombinator.com/" target="_blank">Hacker News</a> on
-      a random date! Made using VueJS, TypeScript, TailwindCSS.
-    </li>
-  </ul>
-</body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HN Favs API</title>
+    <style>
+      body {
+        font-family: monospace;
+        line-height: 1.25;
+        font-size: 1rem;
+        margin: 10vh 10vw;
+      }
+      h1,
+      h2,
+      h3 {
+        color: #333;
+      }
+      h1 {
+        border-bottom: 2px solid #ddd;
+        padding-bottom: 0.5rem;
+      }
+      pre {
+        background: #f8f8f8;
+        padding: 0.75rem;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        overflow-x: auto;
+      }
+      code {
+        background: #f4f4f4;
+        padding: 0.125rem 0.25rem;
+        border-radius: 3px;
+      }
+      a {
+        color: #0077cc;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      ul {
+        list-style-type: disc;
+        margin: 0.625rem 0;
+        padding-left: 1.25rem;
+      }
+      section {
+        margin-bottom: 1.25rem;
+      }
+      hr {
+        border: none;
+        border-top: 1px solid #ddd;
+      }
+      footer {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        gap: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>HN Favs API</h1>
+    <p>
+      A lightweight API to fetch and cache Hacker News favorites (stories or
+      comments) for any user.
+    </p>
+    <hr />
+    <section>
+      <h2>Features</h2>
+      <ul>
+        <li>
+          Retrieve a user's favorite <strong>stories</strong> or
+          <strong>comments</strong> from Hacker News.
+        </li>
+        <li>Handles pagination and retries with quadratic backoff.</li>
+        <li>
+          Caches responses for 24 hours to improve performance and reduce server
+          load.
+        </li>
+        <li>
+          Built with <a href="https://hono.dev">Hono</a> and
+          <a href="https://cheerio.js.org">Cheerio</a> for fast and efficient
+          processing.
+        </li>
+      </ul>
+    </section>
+    <hr />
+    <section>
+      <h2>Endpoints</h2>
+      <h3>
+        Base url:
+        <a href="https://hn-favs.byt3h3ad.workers.dev/"
+          >https://hn-favs.byt3h3ad.workers.dev</a
+        >
+      </h3>
+      <h3>1. Fetch User's Favorites</h3>
+      <ul>
+        <li><strong>Stories:</strong> <code>GET /:username/stories</code></li>
+        <li><strong>Comments:</strong> <code>GET /:username/comments</code></li>
+      </ul>
+      <p><strong>Example:</strong></p>
+      <pre><code>curl https://hn-favs.byt3h3ad.workers.dev/byt3h3ad/stories</code></pre>
+      <h3>2. Delete Cached Response</h3>
+      <p><code>GET /:username/:type/delete-cache</code></p>
+      <p><strong>Example:</strong></p>
+      <pre><code>curl https://hn-favs.byt3h3ad.workers.dev/byt3h3ad/stories/delete-cache</code></pre>
+    </section>
+    <hr />
+    <section>
+      <h2>Response Format</h2>
+      <h3>Stories</h3>
+      <pre><code>[
+  {
+	"id": 42214331,
+	"title": "What made Dostoevsky's work immortalwyounas.com",
+	"url": "https://thoughts.wyounas.com/p/what-made-dostoevsky-immortal",
+	"hnUrl": "https://news.ycombinator.com/item?id=42214331",
+	"type": "story"
+},
+]</code></pre>
+      <h3>Comments</h3>
+      <pre><code>[
+  {
+	"id": 22446090,
+	"url": "https://news.ycombinator.com/item?id=22446090",
+	"user": "bori5",
+	"type": "comment"
+},
+]</code></pre>
+    </section>
+    <hr />
+    <footer>
+      <a href="https://home.byt3h3ad.workers.dev/website">adhiraj</a>
+      <a href="https://github.com/byt3h3ad/hn-favorites-api">git</a>
+    </footer>
+  </body>
+</html>
