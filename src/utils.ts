@@ -41,10 +41,10 @@ export const fetchFaves: Record<
     return list.map((item) => {
       const $item = cheerio.load(item);
       const id = Number($item(".athing").attr("id")!);
-      const title = $item("span.titleline a").text();
-      const url = $item("span.titleline a").attr("href")!;
+      const title = $item("span.titleline a").contents().first().text();
+      let url = $item("span.titleline a").attr("href")!;
       const hnUrl = `https://news.ycombinator.com/item?id=${id}`;
-
+      if (url.startsWith("item")) url = `https://news.ycombinator.com/${url}`;
       return { id, title, url, hnUrl, type: "story" };
     });
   },

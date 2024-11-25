@@ -45,7 +45,7 @@ A lightweight API to fetch and cache Hacker News favorites (stories or comments)
 **Example**:
 
 ```bash
-curl curl https://hn-favs.byt3h3ad.workers.dev/byt3h3ad/stories
+curl https://hn-favs.byt3h3ad.workers.dev/byt3h3ad/stories
 ```
 
 ### 2. **Delete Cached Response**
@@ -55,7 +55,7 @@ curl curl https://hn-favs.byt3h3ad.workers.dev/byt3h3ad/stories
 **Example**:
 
 ```bash
-curl curl https://hn-favs.byt3h3ad.workers.dev/byt3h3ad/stories/delete-cache
+curl https://hn-favs.byt3h3ad.workers.dev/byt3h3ad/stories/delete-cache
 ```
 
 ---
